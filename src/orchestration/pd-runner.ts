@@ -4,7 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import { ensureWorkspace, saveToFile } from '../utils/file-system.js';
 
-export async function runPD(topic: string): Promise<object> {
+export async function runPD(topic: string, refUrls?: string[]): Promise<object> {
   try {
     if (!process.env.OPENAI_API_KEY) {
       throw new Error(
@@ -17,11 +17,16 @@ export async function runPD(topic: string): Promise<object> {
 
     const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
+    let userMessage = topic;
+    if (refUrls && refUrls.length > 0) {
+      userMessage += '\n\n[참고 자료]\n' + refUrls.map(url => `- ${url}`).join('\n');
+    }
+
     const completion = await client.chat.completions.create({
       model: 'gpt-4o-mini',
       messages: [
         { role: 'system', content: skillContent },
-        { role: 'user', content: topic },
+        { role: 'user', content: userMessage },
       ],
       temperature: 0.8,
     });
