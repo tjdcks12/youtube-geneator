@@ -1,0 +1,22 @@
+{
+  "name": "yg-cli",
+  "version": "1.0.0",
+  "description": "YouTube Generator CLI. To install dependencies: npm install commander openai dotenv ts-node typescript @types/node",
+  "type": "module",
+  "bin": {
+    "yg": "./bin/yg.ts"
+  },
+  "scripts": {
+    "start": "ts-node --esm bin/yg.ts"
+  },
+  "dependencies": {
+    "commander": "^11.0.0",
+    "dotenv": "^16.0.0",
+    "openai": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.0.0"
+  }
+}
